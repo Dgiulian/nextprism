@@ -56,7 +56,7 @@ export const resolvers = {
         savedArticles: (parent, { data }, { prisma, user: { id: authorId } }) => {
             return prisma.savedArticle.findMany({ where: { authorId } })
         },
-        me: (parent, { data }, { prisma, user: { id } }) => prisma.user.findUnique({ where: id })
+        me: (parent, { data }, { prisma, user: { id } }) => prisma.user.findUnique({ where: { id } })
 
     },
     Mutation: {
