@@ -9,6 +9,7 @@ type Feed {
     tags: [FeedTag]
     bundles: [Bundle]
     likes: [User]
+    savedArticles: [SavedArticle]
 }
 type FeedTag {
     id: String
@@ -60,6 +61,28 @@ type User {
     feedLikes: [Feed]
     bundleLikes: [Feed]
 }
+type SavedArticle {
+    id: String
+    author: User
+    url: String
+    content: JSON
+    feed: Feed
+}
+
+input SavedArticleInput {
+    url: String
+}
+scalar JSON
+input SavedArticleCreateInput {
+    id: String
+    feed: NestedFeedCreateInput
+    content: JSON
+    url: String
+}
+input NestedFeedCreateInput {
+    connect: FeedWhereUniqueInput
+}
+
 input LikeBundleInput {
     bundleId: String
     likeState: Boolean
@@ -107,6 +130,9 @@ input FindBundleTagInput {
 input FindFeedsInput {
     search: String
 }
+input FindBundlesInput {
+    search: String
+}
 input FeedUpdateInput {
     id: String
     url: String
@@ -145,11 +171,18 @@ type Query {
     findBundleTags(data: FindBundleTagInput): BundleTag
     findFeeds(data: FindFeedsInput): [Feed]
     findBundles(data: FindBundlesInput):[Bundle]
+    savedArticle(data: SavedArticleInput): SavedArticle
+    savedArticles: [SavedArticle]
+
+    me: User
 }
 type Mutation {
     createFeed(data: FeedCreateInput): Feed
     createBundle(data: BundleCreateInput): Bundle
     likeBundle(data: LikeBundleInput): Bundle
     likeFeed(data: LikeFeedInput): Feed
+    createSavedArticle(data: SavedArticleCreateInput):SavedArticle
+    updateFeed(data: FeedUpdateInput): Feed
+    updateBundle(data: BundleUpdateInput): Bundle
 }
 `;
