@@ -97,5 +97,26 @@ export const resolvers = {
             const author = { author: { connect: { id: user.id } } }
             return prisma.savedarticle.create({ data: { ...data, ...author }, })
         },
+        deleteBundle: async (parent, { data }, { prisma, user }) => {
+            const { id } = data;
+            const bundle = await prisma.bundle.findUnique({ where: { id }, include: { author: true } });
+            verifyOwnership(bundle, user);
+            await prisma.bundle.delete({ where: { id: bundle.id } });
+            return bundle;
+        },
+        deleteFeed: async (parent, { data }, { prisma, user }) => {
+            const { id } = data;
+            const feed = await prisma.feed.findUnique({ where: { id }, include: { author: true } });
+            verifyOwnership(feed, user);
+            await prisma.feed.delete({ where: { id: feed.id } });
+            return feed;
+        },
+        deleteSavedArticle: async (parent, { data }, { prisma, user }) => {
+            const { id } = data;
+            const savedarticle = await prisma.savedarticle.findUnique({ where: { id }, include: { author: true } });
+            verifyOwnership(savedarticle, user);
+            await prisma.savedarticle.delete({ where: { id: savedarticle.id } });
+            return savedarticle;
+        }
     }
 }

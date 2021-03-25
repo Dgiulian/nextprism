@@ -161,6 +161,10 @@ input NestedBundleFeedUpdateInput {
     connect: [FeedWhereUniqueInput]
     disconnect: [ FeedWhereUniqueInput]
 }
+
+input DeleteSavedArticleInput {
+    id: String
+}
 type Query {
     hello: String
     feed(data: FeedInput): Feed
@@ -184,5 +188,8 @@ type Mutation {
     createSavedArticle(data: SavedArticleCreateInput):SavedArticle
     updateFeed(data: FeedUpdateInput): Feed
     updateBundle(data: BundleUpdateInput): Bundle
+    deleteBundle(data: BundleInput): Bundle
+    deleteFeed(data: FeedInput): Feed
+    deleteSavedArticle(data: DeleteSavedArticleInput): SavedArticle
 }
 `;
