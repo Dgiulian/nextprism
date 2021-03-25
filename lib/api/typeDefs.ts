@@ -98,12 +98,25 @@ input FeedWhereUniqueInput {
     id: String
     url: String
 }
+input FindFeedTagInput {
+    search: String
+}
+input FindBundleTagInput {
+    search: String
+}
+input FindFeedsInput {
+    search: String
+}
 type Query {
     hello: String
     feed(data: FeedInput): Feed
     bundle(data: BundleInput): Bundle
     feeds: [Feed]
     bundles: [Bundle]
+    findFeedTags(data: FindFeedTagInput): FeedTag
+    findBundleTags(data: FindBundleTagInput): BundleTag
+    findFeeds(data: FindFeedsInput): [Feed]
+    findBundles(data: FindBundlesInput):[Bundle]
 }
 type Mutation {
     createFeed(data: FeedCreateInput): Feed

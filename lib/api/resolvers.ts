@@ -33,6 +33,10 @@ export const resolvers = {
         feeds: (parent, args, { prisma }) => prisma.feed.findMany(),
         bundle: (parent, { data: { id } }, { prisma }) => prisma.bundle.findUnique({ where: { id } }),
         bundles: (parent, args, { prisma }) => prisma.bundle.findMany(),
+        findFeedTags: (parent, { data }, { prisma }) => prisma.feedTag.findMany({ where: { name: { contains: data.search } } }),
+        findBundleTags: (parent, { data }, { prisma }) => prisma.bundleTag.findMany({ where: { name: { contains: data.search } } }),
+        findFeeds: (parent, { data }, { prisma }) => prisma.feed.findMany({ where: { name: { contains: data.search } } }),
+        findBundles: (parent, { data }, { prisma }) => prisma.bundle.findMany({ where: { name: { contains: data.search } } }),
     },
     Mutation: {
         createFeed: async (parent, { data }, { prisma, user }) => {
