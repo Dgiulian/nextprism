@@ -7,13 +7,23 @@ const createFieldResolver = (modelName, parName) => ({
 })
 export const resolvers = {
     Feed: {
-        author: ({ authorId }, args, { prisma }) => prisma.user.findUnique({ where: { id: authorId } }),
-        //...createFieldResolver('feed', 'author')
+        //author: ({ authorId }, args, { prisma }) => prisma.user.findUnique({ where: { id: authorId } }),
+        ...createFieldResolver('feed', 'author'),
+        ...createFieldResolver('feed', 'tags'),
+        ...createFieldResolver('feed', 'bundles')
     },
 
     Bundle: {
-        author: ({ authorId }, args, { prisma }) => prisma.user.findUnique({ where: { id: authorId } }),
-        // ...createFieldResolver('bundle', 'author')
+        //author: ({ authorId }, args, { prisma }) => prisma.user.findUnique({ where: { id: authorId } }),
+        ...createFieldResolver('bundle', 'author'),
+        ...createFieldResolver('bundle', 'tags'),
+        ...createFieldResolver('bundle', 'feeds'),
+    },
+    BundleTag: {
+        ...createFieldResolver('bundleTag', 'bundles'),
+    },
+    FeedTag: {
+        ...createFieldResolver('feedTag', 'feeds'),
     },
     Query: {
         hello: (parent, args, ctx) => { return "hi!" },
