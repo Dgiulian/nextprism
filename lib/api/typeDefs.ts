@@ -107,6 +107,34 @@ input FindBundleTagInput {
 input FindFeedsInput {
     search: String
 }
+input FeedUpdateInput {
+    id: String
+    url: String
+    name: String
+    tag: NestedFeedTagUpdateInput
+}
+input NestedFeedTagUpdateInput {
+    create: [FeedTagCreateInput]
+    connect: [FeedTagWhereUniqueInput]
+    disconnect: [ FeedTagWhereUniqueInput]
+}
+input BundleUpdateInput {
+    id: String
+    name: String
+    description: String
+    tag: NestedBundleTagUpdateInput
+    feeds: NestedBundleFeedUpdateInput
+}
+input NestedBundleTagUpdateInput {
+    create: [BundleTagCreateInput]
+    connect: [BundleTagWhereUniqueInput]
+    disconnect: [ BundleTagWhereUniqueInput]
+}
+input NestedBundleFeedUpdateInput {
+    create: [FeedCreateInput]
+    connect: [FeedWhereUniqueInput]
+    disconnect: [ FeedWhereUniqueInput]
+}
 type Query {
     hello: String
     feed(data: FeedInput): Feed
