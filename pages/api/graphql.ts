@@ -8,7 +8,8 @@ import { resolvers } from "../../lib/api/resolvers";
 import { typeDefs } from "../../lib/api/typeDefs";
 import { context } from '../../lib/api/context';
 
-const schema = applyMiddleware(makeExecutableSchema({ typeDefs, resolvers }), log, permissions)
+//const schema = applyMiddleware(makeExecutableSchema({ typeDefs, resolvers }), log, permissions)
+const schema = applyMiddleware(makeExecutableSchema({ typeDefs, resolvers }), log)
 const handler = new ApolloServer({
     schema,
     context
