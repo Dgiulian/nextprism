@@ -8,6 +8,7 @@ type Feed {
     author: User
     tags: [FeedTag]
     bundles: [Bundle]
+    likes: [User]
 }
 type FeedTag {
     id: String
@@ -47,6 +48,7 @@ type Bundle {
     author: User
     tags: [BundleTag]
     feeds: [Feed]
+    likes: [User]
 }
 type User {
     id: String
@@ -55,6 +57,16 @@ type User {
     picture: String
     bundles: [Bundle]
     feeds:  [Feed]
+    feedLikes: [Feed]
+    bundleLikes: [Feed]
+}
+input LikeBundleInput {
+    bundleId: String
+    likeState: Boolean
+}
+input LikeFeedInput {
+    feedId: String
+    likeState: Boolean
 }
 input BundleInput {
     id: String
@@ -96,5 +108,7 @@ type Query {
 type Mutation {
     createFeed(data: FeedCreateInput): Feed
     createBundle(data: BundleCreateInput): Bundle
+    likeBundle(data: LikeBundleInput): Bundle
+    likeFeed(data: LikeFeedInput): Feed
 }
 `;
